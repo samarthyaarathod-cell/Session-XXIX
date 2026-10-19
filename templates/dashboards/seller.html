@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Seller dashboard | MusicZone{% endblock %}
+{% block content %}
+  <h1>Seller dashboard</h1>
+  <p>There are {{ product_count }} products in the catalog.</p>
+  <p><a href="{% url 'product_add' %}">Post a product</a></p>
+  <p><a href="{% url 'product_list' %}">Manage products</a></p>
+{% endblock %}

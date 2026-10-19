@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Payment sandbox demos{% endblock %}
+{% block content %}
+  <h1>Payment gateway sandbox demos</h1>
+  <p>Try IPL ticket checkout with Paytm or PayPal sandbox, or a food order with Stripe test mode. Provider credentials must be configured in your local environment.</p>
+  <ul><li><a href="{{ url_for('pay') }}">Paytm: IPL tickets</a></li><li><a href="{{ url_for('food_order') }}">Stripe: food order</a></li><li><a href="{{ url_for('paypal_pay') }}">PayPal: IPL tickets</a></li></ul>
+{% endblock %}

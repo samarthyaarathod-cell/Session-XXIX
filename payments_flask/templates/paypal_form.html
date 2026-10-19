@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}PayPal IPL ticket payment{% endblock %}
+{% block content %}
+  <h1>Order IPL match tickets</h1>
+  <p>Sandbox checkout is created and captured on PayPal’s hosted approval flow.</p>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="name">Name</label><input id="name" name="name" autocomplete="name" required>
+    <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required>
+    <label for="amount">Amount (USD)</label><input id="amount" name="amount" type="number" min="1" max="100000" step="0.01" value="25.00" required>
+    <button type="submit">Pay with PayPal sandbox</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,8 @@
+Thanks, {{ name }}!
+
+Your order {{ order.number }} is confirmed.
+{% for item in order.items %}- {{ item }}
+{% endfor %}
+Total: {{ order.total }}
+
+Thanks for choosing MusicZone. Enjoy the sound!

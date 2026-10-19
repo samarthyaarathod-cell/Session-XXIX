@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><body style="margin:0;background:#f5f5fa;font-family:Arial,sans-serif;color:#202033">
+  <div style="max-width:600px;margin:24px auto;background:#fff;border-radius:12px;overflow:hidden">
+    <header style="padding:24px;background:#20134a;color:white"><h1 style="margin:0">MusicZone</h1><p style="margin:8px 0 0">Order confirmed 🎉</p></header>
+    <section style="padding:28px"><h2>Thanks, {{ name }}!</h2><p>Your order <strong>{{ order.number }}</strong> is confirmed. We're getting your picks ready.</p>
+      <h3>Your order</h3><ul>{% for item in order.items %}<li style="padding:5px 0">{{ item|striptags|escape }}</li>{% endfor %}</ul>
+      <p style="font-size:18px"><strong>Total: {{ order.total|striptags|escape }}</strong></p><p>Thanks for choosing MusicZone. Enjoy the sound!</p>
+    </section><footer style="padding:16px 28px;background:#f2effb;color:#625b70">This is a sample order confirmation email.</footer>
+  </div>
+</body></html>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Restaurant location | MusicZone{% endblock %}
+{% block content %}
+  <h1>Find a restaurant</h1>
+  <form method="get">
+    <label for="address">Restaurant address</label>
+    <input id="address" name="address" value="{{ address }}" placeholder="IIM Ahmedabad, Gujarat" required>
+    <button type="submit">Show on map</button>
+  </form>
+  {% if location %}
+    <p>{{ address }} — {{ location.0 }}, {{ location.1 }}</p>
+    {% if maps_api_key %}
+      <iframe title="Map for {{ address }}" width="100%" height="380" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/view?key={{ maps_api_key|urlencode }}&center={{ location.0 }},{{ location.1 }}&zoom=15"></iframe>
+    {% else %}<p>Add GOOGLE_MAPS_API_KEY to your local .env to display the embedded map.</p>{% endif %}
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Payment result{% endblock %}
+{% block content %}
+  <h1>{% if success %}Payment successful{% else %}Payment not completed{% endif %}</h1>
+  <p class="{% if success %}success{% else %}error{% endif %}" role="status">{{ message }}</p>
+  {% if order %}<table><tr><th>Order</th><td>{{ order.id }}</td></tr><tr><th>Provider</th><td>{{ order.provider|title }}</td></tr><tr><th>Item</th><td>{{ order.item }}</td></tr><tr><th>Amount</th><td>{{ order.amount }} {{ order.currency }}</td></tr><tr><th>Status</th><td>{{ order.status|title }}</td></tr></table>{% endif %}
+  <p><a href="{{ url_for('index') }}">Back to payment demos</a></p>
+{% endblock %}

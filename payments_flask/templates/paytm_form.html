@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Paytm IPL ticket payment{% endblock %}
+{% block content %}
+  <h1>Order IPL match tickets</h1>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="name">Name</label><input id="name" name="name" autocomplete="name" required>
+    <label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required>
+    <label for="amount">Amount (INR)</label><input id="amount" name="amount" type="number" min="1" max="100000" step="0.01" value="500.00" required>
+    <button type="submit">Pay with Paytm</button>
+  </form>
+{% endblock %}

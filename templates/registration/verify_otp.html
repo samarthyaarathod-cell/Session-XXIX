@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Verify reset code | MusicZone{% endblock %}
+{% block content %}
+  <h1>Enter your reset code</h1>
+  <p>Use the six-digit code sent to your account email. It expires in five minutes.</p>
+  <form method="post">
+    {% csrf_token %}{{ form.non_field_errors }}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}{{ field.errors }}
+    {% endfor %}
+    <button type="submit">Verify code and reset password</button>
+  </form>
+{% endblock %}

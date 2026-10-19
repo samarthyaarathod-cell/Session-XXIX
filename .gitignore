@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+db.sqlite3
+user_uploads/
+payments_flask/payments.sqlite3

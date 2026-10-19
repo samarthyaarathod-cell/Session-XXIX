@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Login | MusicZone{% endblock %}
+{% block content %}
+  <h1>Login</h1>
+  {% if form.errors %}<p>Your username or password was incorrect. Please try again.</p>{% endif %}
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% endfor %}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit">Login</button>
+  </form>
+  <p>New here? <a href="{% url 'signup' %}">Create an account</a>.</p>
+  {% if google_oauth_enabled %}<p><a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a></p>{% endif %}
+{% endblock %}

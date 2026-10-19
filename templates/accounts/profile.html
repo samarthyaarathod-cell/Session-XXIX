@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ profile.display_name|default:user.username }} | MusicZone{% endblock %}
+{% block content %}
+  <h1>{{ profile.display_name|default:user.username }}</h1>
+  {% if profile.profile_pic %}
+    <img src="{{ profile.profile_pic.url }}" alt="{{ profile.display_name|default:user.username }}'s profile picture" width="160" height="160" style="object-fit:cover;border-radius:50%">
+  {% else %}
+    <img src="{% static 'accounts/default-profile.svg' %}" alt="Default profile picture" width="160" height="160">
+  {% endif %}
+  <p>{{ profile.bio|default:"Add a short bio to tell people about yourself."|linebreaksbr }}</p>
+  {% if profile.phone_number %}<p>Phone: {{ profile.phone_number }}</p>{% endif %}
+  {% if profile.phone_number %}
+    <p>Phone status: {% if profile.phone_verified %}Verified{% else %}Not verified{% endif %}</p>
+    <form method="post" action="{% url 'send_sms_otp' %}">{% csrf_token %}<button type="submit">Send SMS verification code</button></form>
+  {% endif %}
+  <p><a href="{% url 'profile_edit' %}">Edit profile</a></p>
+{% endblock %}

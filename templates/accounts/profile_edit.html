@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Edit profile | MusicZone{% endblock %}
+{% block content %}
+  <h1>Edit your profile</h1>
+  {% if profile.profile_pic %}
+    <img src="{{ profile.profile_pic.url }}" alt="Current profile picture" width="120" height="120" style="object-fit:cover;border-radius:50%">
+  {% else %}
+    <img src="{% static 'accounts/default-profile.svg' %}" alt="Default profile picture" width="120" height="120">
+  {% endif %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}{{ form.non_field_errors }}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}{{ field.errors }}
+    {% endfor %}
+    <button type="submit">Save profile</button>
+  </form>
+{% endblock %}

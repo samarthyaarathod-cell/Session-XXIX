@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Verify phone | MusicZone{% endblock %}
+{% block content %}
+  <h1>Verify your phone</h1>
+  <p>Enter the six-digit code sent by text message. The code expires in five minutes.</p>
+  <form method="post">
+    {% csrf_token %}
+    <label for="{{ form.otp.id_for_label }}">{{ form.otp.label }}</label>
+    {{ form.otp }}{{ form.otp.errors }}
+    <button type="submit">Verify code</button>
+  </form>
+{% endblock %}

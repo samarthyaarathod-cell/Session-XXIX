@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}My orders | MusicZone{% endblock %}
+{% block content %}
+  <h1>My orders</h1>
+  {% if orders %}
+    <table style="width:100%;border-collapse:collapse"><thead><tr><th style="text-align:left">Order</th><th style="text-align:left">Placed</th><th style="text-align:left">Status</th><th style="text-align:left">Total</th></tr></thead>
+    <tbody>{% for order in orders %}<tr style="border-top:1px solid #dedbe7"><td>{{ order.order_number }}</td><td>{{ order.created_at|date:"M j, Y" }}</td><td>{{ order.status }}</td><td>₹{{ order.total }}</td></tr>{% endfor %}</tbody></table>
+  {% else %}<p>You don’t have any orders yet.</p>{% endif %}
+{% endblock %}

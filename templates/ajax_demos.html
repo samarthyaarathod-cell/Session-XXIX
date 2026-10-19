@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AJAX demos | MusicZone{% endblock %}
+{% block content %}
+  <h1>AJAX delete demos</h1>
+  <p>Each Remove button sends a JSON request with fetch(). The page removes the item only after the server confirms success.</p>
+  <p id="ajax-demo-status" role="status" aria-live="polite"></p>
+  <form id="ajax-demo-csrf" hidden>{% csrf_token %}</form>
+
+  <h2>Playlist songs</h2>
+  <ul id="songs-list">
+    {% for song in songs %}
+      <li id="songs-{{ song.id }}">{{ song.name }} <button type="button" class="ajax-demo-delete" data-kind="songs" data-id="{{ song.id }}" data-url="{% url 'delete_demo_item' 'songs' song.id %}">Delete</button></li>
+    {% empty %}<li class="empty-row">No songs in this playlist.</li>{% endfor %}
+  </ul>
+
+  <h2>Watch Later</h2>
+  <ul id="watch-later-list">
+    {% for movie in movies %}
+      <li id="watch-later-{{ movie.id }}">{{ movie.name }} <button type="button" class="ajax-demo-delete" data-kind="watch-later" data-id="{{ movie.id }}" data-url="{% url 'delete_demo_item' 'watch-later' movie.id %}">Remove from Watch Later</button></li>
+    {% empty %}<li class="empty-row">Your Watch Later list is empty.</li>{% endfor %}
+  </ul>
+  <p><a href="{% url 'ajax_demos' %}">Reload demo lists</a></p>
+  <script src="{% static 'accounts/ajax_demos.js' %}" defer></script>
+{% endblock %}

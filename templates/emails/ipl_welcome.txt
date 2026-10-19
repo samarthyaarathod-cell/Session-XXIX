@@ -1,0 +1,10 @@
+The season is yours to call. Welcome to IPL Fantasy League!
+
+Hey {{ name }}!
+
+Your squad is your strategy, every match is a new chance, and bragging rights are waiting. Pick your dream XI, track every run, and climb the leaderboard all season long.
+
+Build your winning XI: http://localhost:8000/
+
+Good luck, captain. Make every pick count!
+Team IPL Fantasy League

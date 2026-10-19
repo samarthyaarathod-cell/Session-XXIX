@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Movie review counts | MusicZone{% endblock %}
+{% block content %}
+  <h1>Movie review counts</h1>
+  {% if movies %}<ul>{% for movie in movies %}<li>{{ movie.name }} — {{ movie.review_count }} review{{ movie.review_count|pluralize }}{% if movie.reviews.all %}<ul>{% for review in movie.reviews.all %}<li>{{ review.reviewer_name }}: {{ review.body }}</li>{% endfor %}</ul>{% endif %}</li>{% endfor %}</ul>{% else %}<p>No movies yet. Add sample data in Django admin.</p>{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Nearby pickup points | MusicZone{% endblock %}
+{% block content %}
+  <h1>Find nearby pickup points</h1>
+  <form method="get">
+    <label for="address">Your current address</label>
+    <input id="address" name="address" value="{{ address }}" placeholder="Enter an address" required>
+    <button type="submit">Search by distance</button>
+  </form>
+  {% if error %}<p role="status">{{ error }}</p>{% endif %}
+  {% if pickup_points %}
+    <h2>Nearest first</h2>
+    <ol>{% for point in pickup_points %}<li><strong>{{ point.name }}</strong> — {{ point.address }} ({{ point.distance_km|floatformat:2 }} km)</li>{% endfor %}</ol>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}MusicZone{% endblock %}</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #202033; background: #f5f5fa; }
+    body { margin: 0; }
+    nav { display:flex; align-items:center; justify-content:space-between; padding:1rem max(5vw, 1rem); background:#20134a; color:white; }
+    nav a { color:inherit; text-decoration:none; margin-left:1rem; }
+    .brand { font-weight:800; font-size:1.25rem; margin:0; }
+    main { max-width:720px; margin:3rem auto; padding:2rem; background:white; border-radius:14px; box-shadow:0 8px 28px #21134a14; }
+    input { display:block; box-sizing:border-box; width:100%; padding:.7rem; margin:.35rem 0 1rem; border:1px solid #c9c6d7; border-radius:6px; }
+    button { padding:.7rem 1.1rem; border:0; border-radius:6px; background:#6238c7; color:white; font-weight:700; cursor:pointer; }
+    .helptext, ul.errorlist { color:#695f79; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main navigation">
+    <a class="brand" href="{% url 'home' %}">MusicZone</a>
+    <div>
+      {% if user.is_authenticated %}
+        <span>Hi, {{ user.username }}</span>
+        <a href="{% url 'dashboard_router' %}">Dashboard</a>
+        <a href="{% url 'my_orders' %}">My orders</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <form method="post" action="{% url 'logout' %}" style="display:inline">
+          {% csrf_token %}<button type="submit">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+      {% endif %}
+    </div>
+  </nav>
+  <main>
+    {% if messages %}<div aria-live="polite">{% for message in messages %}<p class="{{ message.tags }}">{{ message }}</p>{% endfor %}</div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

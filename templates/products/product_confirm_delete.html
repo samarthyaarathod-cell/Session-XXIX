@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Delete product | MusicZone{% endblock %}
+{% block content %}
+  <h1>Delete product?</h1>
+  <p>Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}<button type="submit">Yes, delete</button>
+    <a href="{% url 'product_list' %}">Cancel</a>
+  </form>
+{% endblock %}

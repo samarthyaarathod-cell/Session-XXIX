@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}MusicZone Payment Sandbox{% endblock %}</title>
+  <style>
+    body{font:16px system-ui,sans-serif;background:#f5f5fa;color:#202033;margin:0}header{background:#20134a;color:white;padding:1rem max(5vw,1rem)}header a{color:white;margin-right:1rem}main{max-width:720px;margin:2rem auto;padding:2rem;background:#fff;border-radius:12px}label{display:block;font-weight:600;margin:.7rem 0 .25rem}input{box-sizing:border-box;width:100%;padding:.7rem;border:1px solid #bbb;border-radius:6px}button{margin-top:1rem;padding:.75rem 1rem;background:#6238c7;border:0;border-radius:6px;color:white;font-weight:700} .error{color:#9c1c1c}.success{color:#146c37}table{border-collapse:collapse}td,th{padding:.5rem;border-bottom:1px solid #ddd;text-align:left}
+  </style>
+</head>
+<body>
+<header><a href="{{ url_for('index') }}">Payment demos</a><a href="{{ url_for('pay') }}">Paytm IPL tickets</a><a href="{{ url_for('food_order') }}">Stripe food order</a><a href="{{ url_for('paypal_pay') }}">PayPal IPL tickets</a></header>
+<main>
+  {% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<p class="{{ category }}" role="status">{{ message }}</p>{% endfor %}{% endwith %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

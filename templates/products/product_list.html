@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Products | MusicZone{% endblock %}
+{% block content %}
+  <h1>Products</h1>
+  {% if is_seller %}<p><a href="{% url 'product_add' %}">Add product</a></p>{% endif %}
+  <form method="get" style="display:flex;gap:.75rem;align-items:end;flex-wrap:wrap">
+    <div><label for="search-q">Search</label><input id="search-q" type="search" name="q" value="{{ search_query }}" placeholder="Name or category"></div>
+    <div><label for="category-filter">Category</label><select id="category-filter" name="category"><option value="">All qualifying categories</option>{% for category_name in categories %}<option value="{{ category_name }}" {% if selected_category == category_name %}selected{% endif %}>{{ category_name }}</option>{% endfor %}</select></div>
+    <div><label for="max-price">Max price (₹)</label><input id="max-price" type="number" min="0" step="0.01" name="max_price" value="{{ max_price }}"></div>
+    <button type="submit">Filter</button>
+  </form>
+  <p>Showing products in Electronics or priced below ₹1,000.</p>
+  <p id="product-status" role="status" aria-live="polite"></p>
+  <form id="csrf-token-form" hidden>{% csrf_token %}</form>
+  {% if page_obj.object_list %}
+    <table id="product-table" style="width:100%;border-collapse:collapse">
+      <thead><tr><th style="text-align:left;padding:.6rem">Name</th><th style="text-align:left;padding:.6rem">Price</th><th style="text-align:left;padding:.6rem">Category</th><th>Actions</th></tr></thead>
+      <tbody id="product-list">
+        {% for product in products %}
+          <tr id="product-{{ product.pk }}" style="border-top:1px solid #dedbe7">
+            <td style="padding:.6rem">{{ product.name }}</td>
+            <td style="padding:.6rem">₹{{ product.price }}</td>
+            <td style="padding:.6rem">{{ product.category }}</td>
+            <td style="padding:.6rem;white-space:nowrap">
+              {% if is_seller and perms.accounts.change_product %}<a href="{% url 'product_edit' product.pk %}">Edit</a>{% endif %}
+              {% if is_seller and perms.accounts.delete_product %} · <button type="button" class="ajax-delete-product" data-product-id="{{ product.pk }}" data-delete-url="{% url 'product_delete_ajax' product.pk %}">Remove</button> ·
+              <a href="{% url 'product_delete' product.pk %}">Confirm delete</a>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p id="empty-products">No matching products. Adjust your filters or add a product.</p>
+  {% endif %}
+  {% if page_obj.object_list %}<p id="empty-products" hidden>No products left. <a href="{% url 'product_add' %}">Add a product</a>.</p>{% endif %}
+  {% if page_obj.paginator.num_pages > 1 %}
+    <nav aria-label="Product pages" style="margin-top:1rem">
+      {% if page_obj.has_previous %}<a href="?q={{ search_query|urlencode }}&category={{ selected_category|urlencode }}&max_price={{ max_price|urlencode }}&page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a href="?q={{ search_query|urlencode }}&category={{ selected_category|urlencode }}&max_price={{ max_price|urlencode }}&page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+    </nav>
+  {% endif %}
+  <script src="{% static 'accounts/product_crud.js' %}" defer></script>
+{% endblock %}
